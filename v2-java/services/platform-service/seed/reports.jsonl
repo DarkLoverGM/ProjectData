@@ -1,0 +1,1 @@
+{"_id": {"$oid": "6ae09426dcbadf0eca8b6364"}, "id": "25285867-4b12-4c35-81fd-befbf6a8769f", "reported_user": "1753766617219", "reporter": "2efe8303-ef30-4bdb-8b74-b45e386b9b38", "reason": "inappropriate", "detail": "Quá nhiều thứ tởm", "status": "pending", "created_at": {"$date": "2026-10-27T12:08:06.214Z"}, "resolved_at": null}

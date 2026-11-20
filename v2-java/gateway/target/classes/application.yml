@@ -1,0 +1,44 @@
+server:
+  port: ${GATEWAY_PORT:8080}
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: auth-service
+          uri: ${AUTH_SERVICE_URI:http://localhost:3002}
+          predicates:
+            - Path=/api/auth/**,/api/user/login,/api/user/register/**,/api/user/token-refresh,/api/user/token-status,/api/user/logout,/api/user/find-user,/api/user/forgot-password/**
+
+        - id: user-service
+          uri: ${USER_SERVICE_URI:http://localhost:3003}
+          predicates:
+            - Path=/api/follow/**,/api/user/update,/api/user/userinfo,/api/user/userdata/**,/api/user/block/**,/api/user/report/**,/api/user/notification/**,/api/user/push-token
+
+        - id: video-service
+          uri: ${VIDEO_SERVICE_URI:http://localhost:3004}
+          predicates:
+            - Path=/api/videos/**,/api/video/**,/api/search,/api/tag/**,/api/studio/**,/ws/**
+
+        - id: payment-service
+          uri: ${PAYMENT_SERVICE_URI:http://localhost:3005}
+          predicates:
+            - Path=/api/payments/**,/api/channels/*/membership,/api/studio/membership/**,/api/studio/revenue
+
+        - id: admin-service
+          uri: ${ADMIN_SERVICE_URI:http://localhost:3006}
+          predicates:
+            - Path=/api/admin/**
+
+        - id: platform-fallback
+          uri: ${PLATFORM_SERVICE_URI:http://localhost:3001}
+          predicates:
+            - Path=/api/**,/ws/**
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

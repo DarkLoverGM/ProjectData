@@ -1,0 +1,88 @@
+services:
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  gateway:
+    build:
+      context: ../gateway
+      dockerfile: Dockerfile
+    environment:
+      GATEWAY_PORT: 8080
+      AUTH_SERVICE_URI: http://auth-service:3002
+      USER_SERVICE_URI: http://user-service:3003
+      VIDEO_SERVICE_URI: http://video-service:3004
+      PAYMENT_SERVICE_URI: http://payment-service:3005
+      ADMIN_SERVICE_URI: http://admin-service:3006
+      PLATFORM_SERVICE_URI: http://platform-service:3001
+    ports:
+      - "8080:8080"
+    depends_on:
+      - auth-service
+      - user-service
+      - video-service
+      - payment-service
+      - admin-service
+      - platform-service
+
+  auth-service:
+    build:
+      context: ../services/auth-service
+      dockerfile: Dockerfile
+    environment:
+      PORT: 3002
+      MONGO_URI: mongodb://mongo:27017/YT_AUTH
+    depends_on: [mongo]
+
+  user-service:
+    build:
+      context: ../services/user-service
+      dockerfile: Dockerfile
+    environment:
+      PORT: 3003
+      MONGO_URI: mongodb://mongo:27017/YT_USER
+    depends_on: [mongo]
+
+  video-service:
+    build:
+      context: ../services/video-service
+      dockerfile: Dockerfile
+    environment:
+      PORT: 3004
+      MONGO_URI: mongodb://mongo:27017/YT_VIDEO
+    depends_on: [mongo]
+
+  payment-service:
+    build:
+      context: ../services/payment-service
+      dockerfile: Dockerfile
+    environment:
+      PORT: 3005
+      MONGO_URI: mongodb://mongo:27017/YT_PAYMENT
+    depends_on: [mongo]
+
+  admin-service:
+    build:
+      context: ../services/admin-service
+      dockerfile: Dockerfile
+    environment:
+      PORT: 3006
+      MONGO_URI: mongodb://mongo:27017/YT_ADMIN
+    depends_on: [mongo]
+
+  platform-service:
+    build:
+      context: ../services/platform-service
+      dockerfile: Dockerfile
+    environment:
+      PORT: 3001
+      MONGO_URI: mongodb://mongo:27017/YT
+      APP_ROOT_DIR: /workspace
+    depends_on: [mongo]
+
+volumes:
+  mongo-data:

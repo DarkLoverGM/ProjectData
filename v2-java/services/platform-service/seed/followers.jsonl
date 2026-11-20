@@ -1,0 +1,7 @@
+{"_id": {"$oid": "6aded92f5f6d6f4856aecb0a"}, "following_id": "1753766617219", "follower_id": "2efe8303-ef30-4bdb-8b74-b45e386b9b38", "id": "45e858ec-57c7-443f-a432-a658ef03cac1"}
+{"_id": {"$oid": "6adfa190f97fc37b49455dc8"}, "follower_id": "2efe8303-ef30-4bdb-8b74-b45e386b9b38", "following_id": "00000000-0000-0000-0001-000000000002", "id": "272496fc-12ae-48af-9a35-8412bede54a5"}
+{"_id": {"$oid": "6adfa274f97fc37b49455f58"}, "follower_id": "2efe8303-ef30-4bdb-8b74-b45e386b9b38", "following_id": "00000000-0000-0000-0001-000000000003", "id": "e943d6b3-082f-4194-b460-ebc17db6180f"}
+{"_id": {"$oid": "6adfa800f97fc37b49456309"}, "following_id": "00000000-0000-0000-0001-000000000003", "follower_id": "1753766617219", "id": "24d01cde-e980-4221-aa1f-b233f3d3b7ac"}
+{"_id": {"$oid": "6ae087e700552222b2f89a05"}, "follower_id": "1753766617219", "following_id": "2efe8303-ef30-4bdb-8b74-b45e386b9b38", "id": "795a8dda-9233-4ef9-8294-30aa50d464de"}
+{"_id": {"$oid": "6ae0972400552222b2f8a9fa"}, "following_id": "00000000-0000-0000-0001-000000000001", "follower_id": "2efe8303-ef30-4bdb-8b74-b45e386b9b38", "id": "8b2d9aab-f870-4498-bc2e-e243e8e19cec"}
+{"_id": {"$oid": "6ae98887386fcaf27e97dff5"}, "follower_id": "00000000-0000-0000-0002-000000000004", "following_id": "1753766617219", "id": "8d812ec9-3863-4d4c-bace-bbc60c340bf9"}

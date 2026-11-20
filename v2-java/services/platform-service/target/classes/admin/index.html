@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin · hello-react</title>
+  <link rel="stylesheet" href="/admin/admin.css">
+</head>
+<body>
+  <!-- ============ ĐĂNG NHẬP ============ -->
+  <section id="login-screen" class="login" hidden>
+    <form id="login-form" class="login-card">
+      <h1>Admin</h1>
+      <p class="muted">Đăng nhập bằng tài khoản có role <code>admin</code></p>
+      <label>Email<input name="email" type="email" required autocomplete="username"></label>
+      <label>Mật khẩu<input name="password" type="password" required autocomplete="current-password"></label>
+      <p id="login-error" class="error" hidden></p>
+      <button class="btn primary" type="submit">Đăng nhập</button>
+    </form>
+  </section>
+
+  <!-- ============ APP ============ -->
+  <div id="app" class="shell" hidden>
+    <aside class="sidebar">
+      <div class="brand">hello-react <span>admin</span></div>
+      <nav id="nav">
+        <a href="#dashboard" data-view="dashboard">Tổng quan</a>
+        <a href="#analytics" data-view="analytics">Phân tích</a>
+        <a href="#users" data-view="users">Người dùng</a>
+        <a href="#videos" data-view="videos">Video <span class="count" id="nav-count-videos" title="Người đăng đang chờ phản hồi"></span></a>
+        <a href="#reports" data-view="reports">Báo cáo bình luận <span class="count" id="nav-count-reports"></span></a>
+        <a href="#user-reports" data-view="user-reports">Báo cáo người dùng <span class="count" id="nav-count-user-reports"></span></a>
+        <a href="#payments" data-view="payments">Thanh toán</a>
+        <a href="#broadcast" data-view="broadcast">Gửi thông báo</a>
+        <a href="#audit" data-view="audit">Nhật ký quản trị</a>
+        <a href="#logs" data-view="logs">Log truy cập</a>
+        <a href="#test-api" data-view="test-api">Test API</a>
+        <a href="#system" data-view="system">Hệ thống</a>
+      </nav>
+      <div class="sidebar-foot">
+        <div id="live-status" class="live" data-state="off"><span class="dot"></span><span id="live-label">Realtime: chưa kết nối</span></div>
+        <button id="feed-btn" class="btn ghost small feed-btn" type="button">Thông báo <span class="count" id="feed-count"></span></button>
+        <div id="feed" class="feed" hidden>
+          <div class="feed-head">
+            <strong>Sự kiện mới</strong>
+            <button id="feed-desktop" class="btn small ghost" type="button" hidden>Bật thông báo trình duyệt</button>
+            <button id="feed-clear" class="btn small ghost" type="button">Xoá</button>
+          </div>
+          <ul id="feed-list" class="feed-list"></ul>
+        </div>
+        <div id="me" class="me"></div>
+        <button id="logout-btn" class="btn ghost small">Đăng xuất</button>
+      </div>
+    </aside>
+
+    <main class="content">
+      <!-- Tổng quan -->
+      <section data-page="dashboard" hidden>
+        <header class="page-head"><h2>Tổng quan</h2><button class="btn small" data-reload>Tải lại</button></header>
+        <div id="stats" class="stats"></div>
+        <h3>Video mới nhất</h3>
+        <div class="table-wrap"><table id="recent-videos"></table></div>
+      </section>
+
+      <!-- Phân tích -->
+      <section data-page="analytics" hidden>
+        <header class="page-head">
+          <h2>Phân tích</h2>
+          <form class="filters" data-filter>
+            <select name="days">
+              <option value="7">7 ngày</option>
+              <option value="30" selected>30 ngày</option>
+              <option value="90">90 ngày</option>
+            </select>
+            <button class="btn small">Xem</button>
+          </form>
+        </header>
+        <div id="analytics-kpis" class="stats"></div>
+        <div class="chart-grid" id="analytics-charts"></div>
+        <div class="split">
+          <div>
+            <h3>Video xem nhiều nhất</h3>
+            <div class="table-wrap"><table id="top-videos"></table></div>
+          </div>
+          <div>
+            <h3>Người đăng nổi bật</h3>
+            <div class="table-wrap"><table id="top-creators"></table></div>
+          </div>
+        </div>
+        <h3>Tag phổ biến</h3>
+        <div id="top-tags" class="tag-bars"></div>
+      </section>
+
+      <!-- Người dùng -->
+      <section data-page="users" hidden>
+        <header class="page-head">
+          <h2>Người dùng</h2>
+          <form class="filters" data-filter>
+            <input name="search" placeholder="Tìm username / email / id">
+            <select name="state">
+              <option value="">Tất cả</option>
+              <option value="banned">Đang bị khoá</option>
+              <option value="admin">Admin</option>
+            </select>
+            <button class="btn small">Tìm</button>
+          </form>
+        </header>
+        <div class="table-wrap"><table id="users-table"></table></div>
+        <div class="pager" id="users-pager"></div>
+      </section>
+
+      <!-- Video -->
+      <section data-page="videos" hidden>
+        <header class="page-head">
+          <h2>Video</h2>
+          <form class="filters" data-filter>
+            <input name="search" placeholder="Tìm tiêu đề / người đăng / id">
+            <select name="status">
+              <option value="">Tất cả</option>
+              <option value="1">Đang hiện</option>
+              <option value="0">Đã ẩn</option>
+            </select>
+            <select name="moderation">
+              <option value="">Mọi trạng thái duyệt</option>
+              <option value="pending">Chờ duyệt</option>
+              <option value="approved">Đã duyệt</option>
+              <option value="blocked">Đã chặn</option>
+              <option value="resubmitted">Đã sửa, chờ duyệt lại</option>
+              <option value="appeal">Người đăng cần phản hồi</option>
+            </select>
+            <button class="btn small">Lọc</button>
+          </form>
+        </header>
+        <div class="bulk-bar" id="videos-bulk" hidden>
+          <span id="videos-bulk-count"></span>
+          <button class="btn small danger" data-bulk-status="0">Ẩn đã chọn</button>
+          <button class="btn small" data-bulk-status="1">Hiện đã chọn</button>
+          <button class="btn small ghost" id="videos-bulk-clear">Bỏ chọn</button>
+        </div>
+        <div class="table-wrap"><table id="videos-table"></table></div>
+        <div class="pager" id="videos-pager"></div>
+      </section>
+
+      <!-- Báo cáo -->
+      <section data-page="reports" hidden>
+        <header class="page-head">
+          <h2>Báo cáo bình luận</h2>
+          <form class="filters" data-filter>
+            <select name="status">
+              <option value="0">Chờ xử lý</option>
+              <option value="1">Đã xử lý</option>
+              <option value="">Tất cả</option>
+            </select>
+            <button class="btn small">Lọc</button>
+          </form>
+        </header>
+        <div class="table-wrap"><table id="reports-table"></table></div>
+        <div class="pager" id="reports-pager"></div>
+      </section>
+
+      <!-- Báo cáo người dùng -->
+      <section data-page="user-reports" hidden>
+        <header class="page-head">
+          <h2>Báo cáo người dùng</h2>
+          <form class="filters" data-filter>
+            <select name="status">
+              <option value="pending">Chờ xử lý</option>
+              <option value="resolved">Đã xử lý</option>
+              <option value="dismissed">Đã bỏ qua</option>
+              <option value="">Tất cả</option>
+            </select>
+            <button class="btn small">Lọc</button>
+          </form>
+        </header>
+        <p class="muted small">Khoá một người dùng sẽ tự đóng mọi báo cáo đang chờ về người đó.</p>
+        <div class="table-wrap"><table id="user-reports-table"></table></div>
+        <div class="pager" id="user-reports-pager"></div>
+      </section>
+
+      <!-- Gửi thông báo -->
+      <section data-page="broadcast" hidden>
+        <header class="page-head"><h2>Gửi thông báo</h2></header>
+        <form id="broadcast-form" class="card form-grid">
+          <label>Gửi tới
+            <select name="audience">
+              <option value="all">Tất cả người dùng</option>
+              <option value="admins">Chỉ admin</option>
+              <option value="user">Một người dùng (theo id)</option>
+            </select>
+          </label>
+          <label data-audience-user hidden>User id<input name="userId" spellcheck="false" placeholder="UUID của người nhận"></label>
+          <label>Tiêu đề<input name="title" maxlength="120" required></label>
+          <label>Nội dung<textarea name="content" rows="5" maxlength="2000" required></textarea></label>
+          <div class="filters">
+            <button class="btn primary">Gửi</button>
+            <span class="muted small">Thông báo hiện trong chuông thông báo của người nhận.</span>
+          </div>
+        </form>
+      </section>
+
+      <!-- Thanh toán (hội viên kênh + Super Thanks) -->
+      <section data-page="payments" hidden>
+        <header class="page-head">
+          <h2>Thanh toán</h2>
+          <form class="filters" data-filter>
+            <input name="search" placeholder="Mã đơn / mã GD / tên người dùng">
+            <select name="status">
+              <option value="">Mọi trạng thái</option>
+              <option value="paid">Thành công</option>
+              <option value="pending">Chờ thanh toán</option>
+              <option value="failed">Thất bại</option>
+              <option value="expired">Hết hạn</option>
+            </select>
+            <select name="type">
+              <option value="">Mọi loại</option>
+              <option value="membership">Hội viên kênh</option>
+              <option value="super_thanks">Super Thanks</option>
+            </select>
+            <select name="provider">
+              <option value="">Mọi cổng</option>
+              <option value="momo">MoMo</option>
+              <option value="vnpay">VNPay</option>
+            </select>
+            <button class="btn small">Lọc</button>
+          </form>
+        </header>
+        <div id="payments-stats" class="stats compact"></div>
+        <div class="table-wrap"><table id="payments-table"></table></div>
+        <div class="pager" id="payments-pager"></div>
+      </section>
+
+      <!-- Nhật ký quản trị -->
+      <section data-page="audit" hidden>
+        <header class="page-head">
+          <h2>Nhật ký quản trị</h2>
+          <form class="filters" data-filter>
+            <select name="action" id="audit-actions"><option value="">Mọi hành động</option></select>
+            <input name="admin" placeholder="Admin">
+            <input name="target" placeholder="Đối tượng (id / tên)">
+            <button class="btn small">Lọc</button>
+          </form>
+        </header>
+        <div class="table-wrap"><table id="audit-table"></table></div>
+        <div class="pager" id="audit-pager"></div>
+      </section>
+
+      <!-- Logs -->
+      <section data-page="logs" hidden>
+        <header class="page-head">
+          <h2>Log truy cập</h2>
+          <div class="filters">
+            <button class="btn small" data-reload>Tải lại</button>
+            <button class="btn small danger" id="clear-logs">Xoá log</button>
+          </div>
+        </header>
+        <p class="muted" id="logs-summary"></p>
+        <div class="table-wrap"><table id="logs-table"></table></div>
+      </section>
+
+      <!-- Test API -->
+      <section data-page="test-api" hidden>
+        <header class="page-head"><h2>Test API</h2></header>
+
+        <div class="card">
+          <div class="card-head">
+            <div>
+              <strong>Token</strong>
+              <p class="muted small" id="token-config"></p>
+            </div>
+            <div class="filters">
+              <button class="btn small" id="tk-protected">Gọi API cần đăng nhập</button>
+              <button class="btn small" id="tk-refresh">Refresh ngay</button>
+              <button class="btn small" id="tk-reload">Tải lại</button>
+            </div>
+          </div>
+          <div class="token-grid">
+            <div class="token" id="tk-access"></div>
+            <div class="token" id="tk-refresh-box"></div>
+          </div>
+          <ul class="console" id="tk-log" hidden></ul>
+        </div>
+
+        <div class="tester">
+          <div class="tester-main">
+            <form id="req-form" class="req-line">
+              <select id="req-method">
+                <option>GET</option><option>POST</option><option>PUT</option><option>PATCH</option><option>DELETE</option>
+              </select>
+              <input id="req-url" value="/api/user/userinfo" spellcheck="false" placeholder="/api/...">
+              <button class="btn primary" id="req-send">Gửi</button>
+            </form>
+            <div class="req-options">
+              <select id="req-preset"><option value="">— Chọn endpoint có sẵn —</option></select>
+              <label class="check"><input type="checkbox" id="req-autorefresh" checked> Tự refresh khi 401</label>
+            </div>
+
+            <div class="tabs" data-tabs="req">
+              <button type="button" data-tab="params" class="active">Params</button>
+              <button type="button" data-tab="headers">Headers</button>
+              <button type="button" data-tab="body">Body</button>
+            </div>
+            <div data-tabpanel="req:params"><div class="kv" id="kv-params"></div><button type="button" class="btn small ghost" data-add-kv="params">+ Thêm param</button></div>
+            <div data-tabpanel="req:headers" hidden><div class="kv" id="kv-headers"></div><button type="button" class="btn small ghost" data-add-kv="headers">+ Thêm header</button></div>
+            <div data-tabpanel="req:body" hidden>
+              <textarea id="req-body" spellcheck="false">{
+  "email": "admin@test.local",
+  "password": "123456"
+}</textarea>
+              <button type="button" class="btn small ghost" id="fmt-json">Format JSON</button>
+            </div>
+
+            <div class="response">
+              <div class="resp-meta">
+                <span id="resp-status" class="badge">Chưa gửi</span>
+                <span id="resp-time" class="muted small"></span>
+                <span id="resp-size" class="muted small"></span>
+                <span class="spacer"></span>
+                <div class="tabs inline" data-tabs="resp">
+                  <button type="button" data-tab="body" class="active">Body</button>
+                  <button type="button" data-tab="headers">Headers</button>
+                </div>
+                <button type="button" class="btn small ghost" id="resp-copy">Copy</button>
+              </div>
+              <pre data-tabpanel="resp:body" id="resp-body" class="code"></pre>
+              <pre data-tabpanel="resp:headers" id="resp-headers" class="code" hidden></pre>
+            </div>
+          </div>
+
+          <aside class="history">
+            <div class="card-head"><strong>Lịch sử</strong><button type="button" class="btn small ghost" id="hist-clear">Xoá</button></div>
+            <ul id="hist-list"></ul>
+          </aside>
+        </div>
+      </section>
+
+      <!-- Hệ thống -->
+      <section data-page="system" hidden>
+        <header class="page-head"><h2>Hệ thống</h2><button class="btn small" data-reload>Tải lại</button></header>
+        <div id="system-info" class="stats"></div>
+        <h3>Cấu hình</h3>
+        <div class="table-wrap"><table id="system-config"></table></div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Chi tiết người dùng -->
+  <dialog id="user-dialog" class="drawer">
+    <div id="user-detail"></div>
+  </dialog>
+
+  <!-- Duyệt video: player của frontend (iframe /review/:id) + quyết định -->
+  <dialog id="review-dialog" class="review">
+    <div class="review-layout">
+      <div class="review-player">
+        <iframe id="review-frame" title="Xem video" allow="fullscreen; autoplay; picture-in-picture" allowfullscreen></iframe>
+        <p class="muted small" id="review-frame-hint"></p>
+      </div>
+      <aside class="review-side" id="review-side"></aside>
+    </div>
+  </dialog>
+
+  <!-- Khoá tài khoản -->
+  <dialog id="ban-dialog" class="modal">
+    <form method="dialog" id="ban-form" class="form-grid">
+      <h3 id="ban-title">Khoá tài khoản</h3>
+      <label>Thời hạn
+        <select name="days">
+          <option value="1">1 ngày</option>
+          <option value="3">3 ngày</option>
+          <option value="7" selected>7 ngày</option>
+          <option value="30">30 ngày</option>
+          <option value="0">Vĩnh viễn</option>
+        </select>
+      </label>
+      <label>Lý do (người dùng sẽ thấy khi đăng nhập)<textarea name="reason" rows="3" maxlength="500"></textarea></label>
+      <div class="filters end">
+        <button class="btn ghost" value="cancel" formnovalidate>Huỷ</button>
+        <button class="btn danger" value="ok">Khoá</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" hidden></div>
+  <div id="live-toasts" class="live-toasts"></div>
+  <script src="/admin/admin.js"></script>
+</body>
+</html>

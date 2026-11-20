@@ -1,0 +1,25 @@
+{"_id": {"$oid": "6accb9ca8b2819865770fcbd"}, "id": "356483ee-eace-4039-8966-b2bbbee72b9a", "name": "xuhuong", "slug": "xuhuong", "created_at": {"$date": "2026-10-06T15:54:55Z"}}
+{"_id": {"$oid": "6accb9ca8b2819865770fcbe"}, "id": "384ff8cd-031b-4250-a855-1a662eb3ab95", "name": "dinhcaodoinguoi", "slug": "dinhcaodoinguoi", "created_at": {"$date": "2026-10-06T15:54:55Z"}}
+{"_id": {"$oid": "6accb9ca8b2819865770fcbf"}, "id": "4df550bd-169a-4d35-b6b0-4ac6f4275466", "name": "clickbait", "slug": "clickbait", "created_at": {"$date": "2026-10-06T15:54:55Z"}}
+{"_id": {"$oid": "6accb9ca8b2819865770fcc0"}, "id": "57bed5ef-bb7d-11f1-bbfd-185680e34d0b", "name": "anime", "slug": "anime", "created_at": {"$date": "2026-09-29T06:56:33Z"}}
+{"_id": {"$oid": "6accb9ca8b2819865770fcc1"}, "id": "57bee22e-bb7d-11f1-bbfd-185680e34d0b", "name": "education", "slug": "education", "created_at": {"$date": "2026-09-29T06:56:33Z"}}
+{"_id": {"$oid": "6accb9ca8b2819865770fcc2"}, "id": "57bee2be-bb7d-11f1-bbfd-185680e34d0b", "name": "music", "slug": "music", "created_at": {"$date": "2026-09-29T06:56:33Z"}}
+{"_id": {"$oid": "6accb9ca8b2819865770fcc3"}, "id": "57bee328-bb7d-11f1-bbfd-185680e34d0b", "name": "game", "slug": "game", "created_at": {"$date": "2026-09-29T06:56:33Z"}}
+{"_id": {"$oid": "6accb9ca8b2819865770fcc4"}, "id": "57bee373-bb7d-11f1-bbfd-185680e34d0b", "name": "review", "slug": "review", "created_at": {"$date": "2026-09-29T06:56:33Z"}}
+{"_id": {"$oid": "6accb9ca8b2819865770fcc5"}, "id": "57bee3cb-bb7d-11f1-bbfd-185680e34d0b", "name": "movie", "slug": "movie", "created_at": {"$date": "2026-09-29T06:56:33Z"}}
+{"_id": {"$oid": "6accb9ca8b2819865770fcc6"}, "id": "57bee42a-bb7d-11f1-bbfd-185680e34d0b", "name": "horror", "slug": "horror", "created_at": {"$date": "2026-09-29T06:56:33Z"}}
+{"_id": {"$oid": "6accb9ca8b2819865770fcc7"}, "id": "b667ffff-99f7-400f-8fa2-c4e4139d9c93", "name": "deohaideolaytien", "slug": "deohaideolaytien", "created_at": {"$date": "2026-10-06T15:54:55Z"}}
+{"_id": {"$oid": "6accb9ca8b2819865770fcc8"}, "id": "d9f8cb54-4c72-4ec8-9836-5a04bc65a9e5", "name": "meme", "slug": "meme", "created_at": {"$date": "2026-10-06T15:54:55Z"}}
+{"_id": {"$oid": "6ad6211c76dc7dc9e8758c65"}, "slug": "hai", "created_at": {"$date": "2026-10-19T13:54:36.758Z"}, "id": "16ceb1a3-7029-40db-94ef-ac151e476dad", "name": "hài"}
+{"_id": {"$oid": "6ad6211c76dc7dc9e8758c66"}, "slug": "funny", "created_at": {"$date": "2026-10-19T13:54:36.758Z"}, "id": "0b1752a8-9733-4e88-b5de-6ad88ee54fd4", "name": "funny"}
+{"_id": {"$oid": "6adee5195f6d6f4856aed0fd"}, "slug": "dog", "created_at": {"$date": "2026-10-26T12:00:00Z"}, "id": "seed-tag-dog", "name": "dog"}
+{"_id": {"$oid": "6adee5195f6d6f4856aed100"}, "slug": "cho", "created_at": {"$date": "2026-10-26T12:00:00Z"}, "id": "seed-tag-cho", "name": "chó"}
+{"_id": {"$oid": "6adee5195f6d6f4856aed107"}, "slug": "neverness-to-everness", "created_at": {"$date": "2026-10-26T12:00:00Z"}, "id": "seed-tag-neverness-to-everness", "name": "neverness to everness"}
+{"_id": {"$oid": "6adee5195f6d6f4856aed10a"}, "slug": "zankou", "created_at": {"$date": "2026-10-26T12:00:00Z"}, "id": "seed-tag-zankou", "name": "zankou"}
+{"_id": {"$oid": "6adee5195f6d6f4856aed10d"}, "slug": "trailer", "created_at": {"$date": "2026-10-26T12:00:00Z"}, "id": "seed-tag-trailer", "name": "trailer"}
+{"_id": {"$oid": "6adee5195f6d6f4856aed110"}, "slug": "wuthering-waves", "created_at": {"$date": "2026-10-26T12:00:00Z"}, "id": "seed-tag-wuthering-waves", "name": "wuthering waves"}
+{"_id": {"$oid": "6adee5195f6d6f4856aed113"}, "slug": "phrolova", "created_at": {"$date": "2026-10-26T12:00:00Z"}, "id": "seed-tag-phrolova", "name": "phrolova"}
+{"_id": {"$oid": "6adee5195f6d6f4856aed116"}, "slug": "4k", "created_at": {"$date": "2026-10-26T12:00:00Z"}, "id": "seed-tag-4k", "name": "4k"}
+{"_id": {"$oid": "6adfa266f97fc37b49455eca"}, "slug": "demo", "created_at": {"$date": "2026-10-26T18:56:38.61Z"}, "id": "2dad7483-c631-4308-af35-3afca4a339e9", "name": "demo"}
+{"_id": {"$oid": "6adfa266f97fc37b49455ecb"}, "slug": "copyright", "created_at": {"$date": "2026-10-26T18:56:38.61Z"}, "id": "d7354a6c-795b-4744-9aca-07134cea8d7d", "name": "copyright"}
+{"_id": {"$oid": "6ae08a6200552222b2f89ba2"}, "slug": "bug", "created_at": {"$date": "2026-10-27T11:26:26.004Z"}, "id": "4285a0d4-5df0-4c18-83eb-56d1f31c247e", "name": "bug"}
