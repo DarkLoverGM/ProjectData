@@ -3,9 +3,31 @@ server:
 spring:
   application:
     name: payment-service
-  data:
-    mongodb:
-      uri: ${MONGO_URI:mongodb://127.0.0.1:27017/YT_PAYMENT}
+  datasource:
+    url: ${MYSQL_URL:jdbc:mysql://127.0.0.1:3306/yt_payment?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC}
+    username: ${MYSQL_USER:root}
+    password: ${MYSQL_PASSWORD:root}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+# Dia chi cac Microservices
+services:
+  video:
+    url: ${VIDEO_SERVICE_URL:http://localhost:3004}
+  user:
+    url: ${USER_SERVICE_URL:http://localhost:3003}
+
+# CORS Configuration
+app:
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173}
+
 management:
   endpoints:
     web:
