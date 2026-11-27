@@ -6,6 +6,12 @@ spring:
   data:
     mongodb:
       uri: ${MONGO_URI:mongodb://127.0.0.1:27017/YT_VIDEO}
+
+# CORS Configuration
+app:
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173}
+
 management:
   endpoints:
     web:
